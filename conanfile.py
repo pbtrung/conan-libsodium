@@ -13,10 +13,8 @@ class LibsodiumConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = "shared=False"
     generators = "cmake"
-    if settings.os != "Windows":
-        src_dir = "%s-%s" % (name, version)
-    else:
-        src_dir = "%s-%s-msvc" % (name, version)
+    src_dir = "%s-%s" % (name, version)
+    src_dir_windows = "%s-%s-msvc" % (name, version)
 
     def source(self):
         if self.settings.os != "Windows":
