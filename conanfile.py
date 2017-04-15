@@ -53,34 +53,34 @@ class LibsodiumConan(ConanFile):
                 if self.settings.compiler == "Visual Studio":
                     if self.settings.build_type == "Debug":
                         if self.settings.compiler.version == "10":
-                            package_windows(self, "Win32", "Debug", "v100")
+                            self.package_windows(self, "Win32", "Debug", "v100")
                         elif self.settings.compiler.version == "12":
-                            package_windows(self, "Win32", "Debug", "v120")
+                            self.package_windows(self, "Win32", "Debug", "v120")
                         elif self.settings.compiler.version == "14":
-                            package_windows(self, "Win32", "Debug", "v140")
+                            self.package_windows(self, "Win32", "Debug", "v140")
                     elif self.settings.build_type == "Release":
                         if self.settings.compiler.version == "10":
-                            package_windows(self, "Win32", "Release", "v100")
+                            self.package_windows(self, "Win32", "Release", "v100")
                         elif self.settings.compiler.version == "12":
-                            package_windows(self, "Win32", "Release", "v120")
+                            self.package_windows(self, "Win32", "Release", "v120")
                         elif self.settings.compiler.version == "14":
-                            package_windows(self, "Win32", "Release", "v140")
+                            self.package_windows(self, "Win32", "Release", "v140")
             elif self.settings.arch == "x86_64":
                 if self.settings.compiler == "Visual Studio":
                     if self.settings.build_type == "Debug":
                         if self.settings.compiler.version == "10":
-                            package_windows(self, "x64", "Debug", "v100")
+                            self.package_windows(self, "x64", "Debug", "v100")
                         elif self.settings.compiler.version == "12":
-                            package_windows(self, "x64", "Debug", "v120")
+                            self.package_windows(self, "x64", "Debug", "v120")
                         elif self.settings.compiler.version == "14":
-                            package_windows(self, "x64", "Debug", "v140")
+                            self.package_windows(self, "x64", "Debug", "v140")
                     elif self.settings.build_type == "Release":
                         if self.settings.compiler.version == "10":
-                            package_windows(self, "x64", "Release", "v100")
+                            self.package_windows(self, "x64", "Release", "v100")
                         elif self.settings.compiler.version == "12":
-                            package_windows(self, "x64", "Release", "v120")
+                            self.package_windows(self, "x64", "Release", "v120")
                         elif self.settings.compiler.version == "14":
-                            package_windows(self, "x64", "Release", "v140")
+                            self.package_windows(self, "x64", "Release", "v140")
     
     def package_windows(self, arch, build_type, compiler_version):
         src_dir = "%s/%s/%s" % (arch, build_type, compiler_version)
