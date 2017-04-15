@@ -119,4 +119,7 @@ class LibsodiumConan(ConanFile):
                             self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["sodium"]
+        if self.settings.os != "Windows":
+            self.cpp_info.libs = ["sodium"]
+        else:
+            self.cpp_info.libs = ["libsodium"]
