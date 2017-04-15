@@ -5,11 +5,7 @@ import os
 
 class LibsodiumConan(ConanFile):
     name = "libsodium"
-    version = " "
-    if self.settings.os != "Windows":
-        src_dir = "%s-%s" % (name, version)
-    else:
-        src_dir = "%s-%s-msvc" % (name, version)
+    version = " 
     description = "The Sodium crypto library"
     license = "https://raw.githubusercontent.com/jedisct1/libsodium/master/LICENSE"
     url = "https://github.com/pbtrung/conan-libsodium"
@@ -17,6 +13,10 @@ class LibsodiumConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = "shared=False"
     generators = "cmake"
+    if settings.os != "Windows":
+        src_dir = "%s-%s" % (name, version)
+    else:
+        src_dir = "%s-%s-msvc" % (name, version)
 
     def source(self):
         if self.settings.os != "Windows":
