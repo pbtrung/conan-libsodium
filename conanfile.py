@@ -5,7 +5,7 @@ import os
 
 class LibsodiumConan(ConanFile):
     name = "libsodium"
-    version = " 
+    version = "1.0.12"
     description = "The Sodium crypto library"
     license = "https://raw.githubusercontent.com/jedisct1/libsodium/master/LICENSE"
     url = "https://github.com/pbtrung/conan-libsodium"
