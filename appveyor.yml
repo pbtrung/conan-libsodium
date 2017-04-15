@@ -1,0 +1,24 @@
+build: false
+environment:
+    PYTHON: "C:\\Python27"
+    PYTHON_VERSION: "2.7.13"
+    PYTHON_ARCH: "32"
+    
+    CONAN_UPLOAD: 1
+    CONAN_REFERENCE: "libsodium/1.0.12"
+    CONAN_USERNAME: "pbtrung"
+    CONAN_CHANNEL: "stable"
+    CONAN_TOTAL_PAGES: 1
+    
+    matrix:
+        - CONAN_CURRENT_PAGE: 1
+
+install:
+  # Workaround for CMake not wanting sh.exe on PATH for MinGW
+  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+  - set PATH=%PATH%;%PYTHON%/Scripts/
+  - pip.exe install conan_package_tools
+  - conan user
+
+test_script:
+  - python build.py

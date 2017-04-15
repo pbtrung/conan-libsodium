@@ -5,7 +5,7 @@ import os
 
 class LibsodiumConan(ConanFile):
     name = "libsodium"
-    version = "1.0.12"
+    version = " "
     if self.settings.os != "Windows":
         src_dir = "%s-%s" % (name, version)
     else:
