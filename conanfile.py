@@ -53,40 +53,70 @@ class LibsodiumConan(ConanFile):
                 if self.settings.compiler == "Visual Studio":
                     if self.settings.build_type == "Debug":
                         if self.settings.compiler.version == "10":
-                            self.package_windows(self, "Win32", "Debug", "v100")
+                            path = "Win32/Debug/v100"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
-                            self.package_windows(self, "Win32", "Debug", "v120")
+                            path = "Win32/Debug/v120"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
-                            self.package_windows(self, "Win32", "Debug", "v140")
+                            path = "Win32/Debug/v140"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                     elif self.settings.build_type == "Release":
                         if self.settings.compiler.version == "10":
-                            self.package_windows(self, "Win32", "Release", "v100")
+                            path = "Win32/Release/v100"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
-                            self.package_windows(self, "Win32", "Release", "v120")
+                            path = "Win32/Release/v120"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
-                            self.package_windows(self, "Win32", "Release", "v140")
+                            path = "Win32/Release/v140"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
             elif self.settings.arch == "x86_64":
                 if self.settings.compiler == "Visual Studio":
                     if self.settings.build_type == "Debug":
                         if self.settings.compiler.version == "10":
-                            self.package_windows(self, "x64", "Debug", "v100")
+                            path = "x64/Debug/v100"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
-                            self.package_windows(self, "x64", "Debug", "v120")
+                            path = "x64/Debug/v120"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
-                            self.package_windows(self, "x64", "Debug", "v140")
+                            path = "x64/Debug/v140"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                     elif self.settings.build_type == "Release":
                         if self.settings.compiler.version == "10":
-                            self.package_windows(self, "x64", "Release", "v100")
+                            path = "x64/Release/v100"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
-                            self.package_windows(self, "x64", "Release", "v120")
+                            path = "x64/Release/v120"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
-                            self.package_windows(self, "x64", "Release", "v140")
-    
-    def package_windows(self, arch, build_type, compiler_version):
-        src_dir = "%s/%s/%s" % (arch, build_type, compiler_version)
-        self.copy("*", dst="dynamic", src="%s/dynamic" % src_dir, keep_path=False)
-        self.copy("*", dst="ltcg", src="%s/ltcg" % src_dir, keep_path=False)
-        self.copy("*", dst="static", src="%s/static" % src_dir, keep_path=False)
+                            path = "x64/Release/v140"
+                            self.copy("*", dst="dynamic", src="%s/dynamic" % path, keep_path=False)
+                            self.copy("*", dst="ltcg", src="%s/ltcg" % path, keep_path=False)
+                            self.copy("*", dst="static", src="%s/static" % path, keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = ["sodium"]
