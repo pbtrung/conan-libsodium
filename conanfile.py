@@ -36,7 +36,7 @@ class LibsodiumConan(ConanFile):
                 with tools.chdir(self.src_dir):
                     self.run(configure_command)
                     self.run("make -j " + str(max(tools.cpu_count() - 1, 1)))
-                self.run("make install")
+                    self.run("make install")
         else:
             pass
 
