@@ -21,7 +21,7 @@ class LibsodiumConan(ConanFile):
             zip_name = "libsodium-%s.tar.gz" % self.version
         else:
             zip_name = "libsodium-%s-msvc.zip" % self.version
-            
+
         url = "https://download.libsodium.org/libsodium/releases/%s"
         download(url % zip_name, zip_name, verify=False)
         unzip(zip_name)
@@ -39,84 +39,97 @@ class LibsodiumConan(ConanFile):
                 self.run("make install")
         else:
             pass
-        
+
     def package(self):
+        self.copy("*.h", dst="include", src="include", keep_path=True)
         if self.settings.os != "Windows":
-            self.copy("*.h", dst="include", src="include", keep_path=True)
-            self.copy("*.so*", dst="lib", src="lib", keep_path=False)
-            self.copy("*.la", dst="lib", src="lib", keep_path=False)
             self.copy("*.pc", dst="lib/pkgconfig", src="lib", keep_path=False)
-            self.copy("*.a", dst="lib", src="lib", keep_path=False)
+            if self.options.shared == True:
+                self.copy("*.so*", dst="lib", src="lib", keep_path=False)
+                self.copy("*.dylib", dst="lib", src="lib", keep_path=False)
+            else:
+                self.copy("*.a", dst="lib", src="lib", keep_path=False)
         else:
-            self.copy("*.h", dst="include", src="include", keep_path=True)
             if self.settings.arch == "x86":
                 if self.settings.compiler == "Visual Studio":
                     if self.settings.build_type == "Debug":
                         if self.settings.compiler.version == "10":
                             path = "Win32/Debug/v100"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
                             path = "Win32/Debug/v120"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
                             path = "Win32/Debug/v140"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                     elif self.settings.build_type == "Release":
                         if self.settings.compiler.version == "10":
                             path = "Win32/Release/v100"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
                             path = "Win32/Release/v120"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
                             path = "Win32/Release/v140"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
             elif self.settings.arch == "x86_64":
                 if self.settings.compiler == "Visual Studio":
                     if self.settings.build_type == "Debug":
                         if self.settings.compiler.version == "10":
                             path = "x64/Debug/v100"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
                             path = "x64/Debug/v120"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
                             path = "x64/Debug/v140"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                     elif self.settings.build_type == "Release":
                         if self.settings.compiler.version == "10":
                             path = "x64/Release/v100"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "12":
                             path = "x64/Release/v120"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
                         elif self.settings.compiler.version == "14":
                             path = "x64/Release/v140"
-                            self.copy("*", dst="lib/dynamic", src="%s/dynamic" % path, keep_path=False)
-                            self.copy("*", dst="lib/ltcg", src="%s/ltcg" % path, keep_path=False)
-                            self.copy("*", dst="lib/static", src="%s/static" % path, keep_path=False)
+                            if self.options.shared == True:
+                                self.copy("*", dst="lib", src="%s/dynamic" % path, keep_path=False)
+                            else:
+                                self.copy("*", dst="lib", src="%s/static" % path, keep_path=False)
 
     def package_info(self):
         if self.settings.os != "Windows":
