@@ -18,8 +18,8 @@ class LibsodiumTestConan(ConanFile):
         cmake.build(self)
 
     def imports(self):
-        self.copy("*.dll", "bin", "dynamic")
-        self.copy("*.dylib", "bin", "bin")
+        self.copy("*.dll", "bin", "lib")
+        self.copy("*.dylib", "bin", "lib")
 
     def test(self):
         os.chdir("bin")
